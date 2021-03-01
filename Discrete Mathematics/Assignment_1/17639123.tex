@@ -1,0 +1,216 @@
+% Plantilla para documentos LaTeX para enunciados
+% Por Pedro Pablo Aste Kompen - ppaste@uc.cl
+% Licencia Creative Commons BY-NC-SA 3.0
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[12pt]{article}
+
+% Margen de 1 pulgada por lado
+\usepackage{fullpage}
+% Incluye gráficas
+\usepackage{graphicx}
+% Packages para matemáticas, por la American Mathematical Society
+\usepackage{amssymb}
+\usepackage{amsmath}
+% Desactivar hyphenation
+\usepackage[none]{hyphenat}
+% Saltar entre párrafos - sin sangrías
+\usepackage{parskip}
+% Español y UTF-8
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+% Links en el documento
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{5pt}
+\pagestyle{fancy}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Exp}[1]{\mathcal{E}_{#1}}
+\newcommand{\List}[1]{\mathcal{L}_{#1}}
+\newcommand{\EN}{\Exp{\N}}
+\newcommand{\LN}{\List{\N}}
+
+\newcommand{\comment}[1]{}
+\newcommand{\lb}{\\~\\}
+\newcommand{\eop}{_{\square}}
+\newcommand{\hsig}{\hat{\sigma}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\leftrightarrow}
+
+% Cambiar por nombre completo + número de alumno
+\newcommand{\alumno}{Rafael Fernández - 17639123}
+\rhead{Tarea 1 - \alumno}
+
+\begin{document}
+
+
+\thispagestyle{empty}
+% Membrete
+% PUC-ING-DCC-IIC1103
+\begin{minipage}{2.3cm}
+\includegraphics[width=2cm]{img/logo.pdf}
+\vspace{0.5cm} % Altura de la corona del logo, así el texto queda alineado verticalmente con el círculo del logo.
+\end{minipage}
+\begin{minipage}{\linewidth}
+\textsc{\raggedright \footnotesize
+Pontificia Universidad Católica de Chile \\
+Departamento de Ciencia de la Computación \\
+IIC1253 - Matemáticas Discretas \\}
+\end{minipage}
+
+
+% Titulo
+\begin{center}
+\vspace{0.5cm}
+{\huge\bf Tarea 1}\\
+\vspace{0.2cm}
+\today\\
+\vspace{0.2cm}
+\footnotesize{2º semestre 2019 - Profesores G. Diéguez - F. Suárez}\\
+\vspace{0.2cm}
+\footnotesize{\alumno}
+\rule{\textwidth}{0.05mm}
+\end{center}
+
+
+
+\section*{Respuestas}
+% Estas numeracion es solo de ejemplo
+
+\subsection*{Pregunta 1}
+\textbf{Por Demostrar:}
+\\
+\[\sum_{i=0}^{n} i(-1)^i = (-1)^n \ceil[\Big]{\frac{n}{2}},  \forall n \in \mathbb{N}\] \\
+\textbf{Caso Base}:
+\\
+\[0 + (-1)^1 * 1 = 1 = (-1)^1 * \ceil[\Big]{\frac{1}{2}} \]
+\\
+\textbf{Hipotesis Inductiva}: Suponemos que la siguiente ecuación es cierta:
+\[\sum_{i=0}^{n} i(-1)^i = (-1)^n \ceil[\Big]{\frac{n}{2}},  \forall n \in \mathbb{N}\] 
+
+\newpage
+\textbf{Tesis Inductiva}:
+
+\begin{align}
+\sum_{i=0}^{n + 1} i(-1)^i&=(-1)^{n+1} \ceil[\Big]{\frac{n+1}{2}}\\
+\sum_{i=0}^{n} i(-1)^i + (-1)^{n+1}(n+1)&=\\
+(-1)^{n} \ceil[\Big]{\frac{n}{2}}-(-1)^{n}(n+1)&=\\
+(-1)^{n}(\ceil[\Big]{\frac{n}{2}}-(n+1))&=\\
+(-1)^{n+1}((n+1)-\ceil[\Big]{\frac{n}{2}})&=
+\end{align}
+
+\textbf{Caso $n$ es par}:\\
+\text{Sea $n = 2k$}\\
+\begin{align}
+(-1)^{2k+1}((2k+1)-\ceil[\Big]{\frac{2k}{2}})&=\\
+(-1)^{2k+1}((2k+1)-k)&=\\
+(-1)^{2k+1}(k+1)&=\\
+(-1)^{2k+1}\ceil[\Big]{\frac{2k +1}{2}}&=(-1)^{n+1}\ceil[\Big]{\frac{n +1}{2}}\\
+\end{align}
+\textbf{Caso $n$ es impar}:\\
+\text{Sea $n = 2k + 1$}\\
+\begin{align}
+(-1)^{2k+2}((2k+2)-\ceil[\Big]{\frac{2k+1}{2}})&=\\
+(-1)^{2k+2}((2k+2)-(k + 1))&=\\
+(-1)^{2k+2}(k+1)&=\\
+(-1)^{2k+2}\ceil[\Big]{\frac{2k +1}{2}}&=(-1)^{n+1}\ceil[\Big]{\frac{n +1}{2}}\\
+\end{align}
+
+
+\newpage
+\subsection*{Pregunta 2}
+
+Sea $S$ el conjunto de todos los Strings definidos por:\\
+\begin{math}
+0 \in S \\
+1 \in S \\
+x \in S, y \in S \Rightarrow x y \in S
+\end{math}
+
+Nota: De esta definición se desprende que $L \subset S$ \\
+
+Sea la función $Unos: S \rightarrow \mathbb{N}$ definida por: \\
+\begin{math}
+Unos(0) = 0 \\
+Unos(1) = 1 \\
+Unos(xy) = Unos(x) + Unos(y)\\
+\end{math}
+
+\textbf{Por Demostrar:}\\
+\[\exists n \in \mathbb{N} | Unos(x) = 2n + 1 \Leftrightarrow x \in L, x \in S\] \\
+
+\textbf{Sentido $\Rightarrow$:}\\
+
+\textbf{Por Demostrar:}\\
+\[\exists n \in \mathbb{N} | Unos(x) = 2n + 1 \Rightarrow x \in L, x \in S\] \\
+
+
+\textbf{Hipotesis Inductiva}: Suponemos que la siguiente implicancia es cierta:
+\[\exists n \in \mathbb{N} | Unos(x) = 2n + 1 \Rightarrow x \in L, x \in S\] \\
+\textbf{Caso Base}:\\
+\begin{math}
+s = 1, Unos(s) = 1 = 2*0 + 1, s \in L \textrm{ por definición}\\ \\
+\end{math}
+\textbf{Tesis Inductiva}:\\
+Sea $s \in S$
+
+Caso en que $s$ es de la forma $0x$:\\
+\begin{math}
+Unos(0x) = 2n + 1 = Unos(x) \textrm{, por lo tanto}, \\
+x \in L \textrm{ por HI y } 0x \in L \textrm{ por definición}\\
+\end{math} \\
+
+Caso en que $s$ es de la forma $x0$:\\
+\begin{math}
+Unos(x0) = 2n + 1 = Unos(x) \textrm{, por lo tanto}, \\
+x \in L \textrm{ por HI y } x0 \in L \textrm{ por definición}\\
+\end{math} \\
+
+Caso en que $s$ es de la forma $x1y$:\\
+\begin{math}
+Unos(x1y) = 2n + 1 \Rightarrow Unos(xy) \textrm{ es par} \Rightarrow Unos(x) + Unos(y)\textrm{ es par}, \\
+\textrm{Se puede tener un } x | Unos(x) \textrm{ es impar y un } y | Unos(y) \textrm{ es impar. Luego,} \\
+x,y \in L \textrm{ por HI y } x1y \in L \textrm{ por definición}. 
+\end{math} \\
+
+\textbf{Sentido $\Leftarrow$:}\\
+
+\textbf{Por Demostrar:}\\
+\[x \in L \Rightarrow \exists n \in \mathbb{N} | Unos(x) = 2n + 1\] \\
+
+
+\textbf{Hipotesis Inductiva}: Suponemos que la siguiente implicancia es cierta:
+\[x \in L \Rightarrow \exists n \in \mathbb{N} | Unos(x) = 2n + 1\] \\
+\textbf{Caso Base}:\\
+\begin{math}
+s = 1, s \in L,  Unos(s) = 1 = 2*0 + 1\\ \\
+\end{math}
+\textbf{Tesis Inductiva}:\\
+1. $x \in L \Rightarrow 0x \in L$: \\
+\begin{math}
+Unos(x) = 2n + 1\\
+Unos(0x) = 0 + Unos(x) = 2n + 1\\
+\end{math}
+\\
+2. $x \in L \Rightarrow x0 \in L$: \\
+\begin{math}
+Unos(x) = 2n + 1\\
+Unos(x0) = Unos(x) + 0 = 2n + 1\\
+\end{math}
+\newpage
+3. $x,y \in L \Rightarrow x1y \in L$: \\
+\begin{math}
+Unos(x1y) = Unos(x) + 1 + Unos(y)\\
+Unos(x1y) = 2p + 1 + 1 + 2q + 1; p,q \in \mathbb{N}, \textrm{ por HI.}\\
+Unos(x1y) = 2p + 2q + 2 +1 \\
+Unos(x1y) = 2p + 2q + 2 +1 \\
+Unos(x1y) = 2(p + q + 1) + 1 \\
+Unos(x1y) = 2r + 1, r \in \mathbb{N} \\ 
+\end{math}
+
+% Fin del documento
+\end{document}

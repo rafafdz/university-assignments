@@ -1,0 +1,22 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Pou + Connect + Clingo</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="visualizer.js"></script>
+</head>
+
+<body>
+    <h2>Visualizador Connect</h2> 
+    <form name="input_datos"  onsubmit="return false;">
+        Filas:    <input type="number" id="y_max_input" name="y" min="0" max="100"> <br/>
+        Columnas: <input type="number" id="x_max_input" name="x" min="0" max="100"> <br/>
+        Output Modelo: <input type="text" id="model_input" name="modelo"> <br/>
+        <input type="submit" onclick="visualize();" value="Visualizar">
+    </form>
+
+    <br/>
+
+    <div id="visualizer"> </div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+view	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $view = "CREATE VIEW Hab_Mas_Reservada_Region AS$/;"	variable	line:8
+query	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $query = "SELECT R.rid, R.nombre, H.habid, H.hotid, H.nombre, H.precio$/;"	variable	line:17
+result	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $result = $db -> prepare($query);$/;"	variable	line:27

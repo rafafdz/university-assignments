@@ -1,0 +1,156 @@
+% Plantilla para documentos LaTeX para enunciados
+% Por Pedro Pablo Aste Kompen - ppaste@uc.cl
+% Licencia Creative Commons BY-NC-SA 3.0
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[12pt]{article}
+
+% Margen de 1 pulgada por lado
+\usepackage{fullpage}
+% Incluye gráficas
+\usepackage{graphicx}
+% Packages para matemáticas, por la American Mathematical Society
+\usepackage{amssymb}
+\usepackage{amsmath}
+% Desactivar hyphenation
+\usepackage[none]{hyphenat}
+% Saltar entre párrafos - sin sangrías
+\usepackage{parskip}
+% Español y UTF-8
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+% Links en el documento
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{5pt}
+\pagestyle{fancy}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Exp}[1]{\mathcal{E}_{#1}}
+\newcommand{\List}[1]{\mathcal{L}_{#1}}
+\newcommand{\EN}{\Exp{\N}}
+\newcommand{\LN}{\List{\N}}
+
+\newcommand{\comment}[1]{}
+\newcommand{\lb}{\\~\\}
+\newcommand{\eop}{_{\square}}
+\newcommand{\hsig}{\hat{\sigma}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\leftrightarrow}
+
+% Cambiar por nombre completo + número de alumno
+\newcommand{\alumno}{Rafael Fernández - 17639123}
+\rhead{Tarea 6 - \alumno}
+
+\begin{document}
+\thispagestyle{empty}
+% Membrete
+% PUC-ING-DCC-IIC1103
+\begin{minipage}{2.3cm}
+\includegraphics[width=2cm]{img/logo.pdf}
+\vspace{0.5cm} % Altura de la corona del logo, así el texto queda alineado verticalmente con el círculo del logo.
+\end{minipage}
+\begin{minipage}{\linewidth}
+\textsc{\raggedright \footnotesize
+Pontificia Universidad Católica de Chile \\
+Departamento de Ciencia de la Computación \\
+IIC1253 - Matemáticas Discretas \\}
+\end{minipage}
+
+
+% Titulo
+\begin{center}
+\vspace{0.5cm}
+{\huge\bf Tarea 6}\\
+\vspace{0.2cm}
+\today\\
+\vspace{0.2cm}
+\footnotesize{2º semestre 2019 - Profesores G. Diéguez - F. Suárez}\\
+\vspace{0.2cm}
+\footnotesize{\alumno}
+\rule{\textwidth}{0.05mm}
+\end{center}
+
+
+
+\section*{Respuestas}
+% Estas numeracion es solo de ejemplo
+
+\subsection*{Pregunta 1}
+
+Sean $G$ y $H$ grafos simples con \textit{caminos Hamiltonianos}. \\
+Sea $C_G = (g_1, g_2, ..., g_n)$ con $g_i \in V(G), i \in \{1..n\}$ un \textit{Camino Hamiltoniano} en $G$. \\
+Sea $C_H = (h_1, h_2, ..., h_m)$ con $h_i \in V(H), i \in \{1..m\}$ un \textit{Camino Hamiltoniano} en $H$. \\
+
+Sea $I = G \times V$. Por definición de producto cartesiano entre grafos, tenemos los siguientes \\
+caminos en $I$:
+\begin{align*}
+C_1 &= ((g_1, h_1), (g_1, h_2), ... , (g_1, h_m)) \\
+C_2 &= ((g_2, h_m), (g_2, h_{m-1}), ... , (g_2, h_1)) \\
+C_3 &= ((g_3, h_1), (g_3, h_2), ... , (g_3, h_m)) \\
+\vdots \\
+C_n &= \begin{cases} 
+      ((g_n, h_1), (g_n, h_2), ... , (g_n, h_m)) & n \textrm{ impar} \\
+      ((g_n, h_m), (g_n, h_{m-1}), ... , (g_n, h_1)) & n \textrm{ par}  
+\end{cases}
+\end{align*}
+
+\newpage
+
+Luego, entre cada camino $C_i, C_{i+1}, \forall i \in \{1,...,n-1\}$, por la definición del producto cruz, existen aristas de la forma: \\
+\[
+a_{i,i+1}
+\begin{cases} 
+      ((g_i, h_m), (g_{i+1}, h_m)) & i \textrm{ impar} \\
+      ((g_i, h_1), (g_{i+1}, h_1)) & i \textrm{ par}  
+\end{cases}
+\]
+Por lo tanto, tenemos el camino $C = C_1, a_{1,2}, C_2, a_{2,3}, ..., C_{n-1}, a_{n-1, n}, C_n$, el cual es \textit{Hamiltoniano} ya que contiene a todos los vértices de $I$.
+
+$$\blacksquare$$
+
+
+\newpage
+\subsection*{Pregunta 2}
+
+\subsubsection*{Pregunta 2.a}
+Por demostrar: \\
+$G$ es árbol $\Leftrightarrow$ tiene exactamente un ciclo al agregar una arista cualquiera 
+
+$(\Rightarrow)$ \\
+Sea $v_1, v_2 \in V(G)$. Ya que $G$ es aŕbol, existe un camino único $v_2, ..., v_2$ que conecta ambos vértices. Luego, al agregar la arista $(v_2, v_1)$ se habrá formado un ciclo. Ya que el camino que unía a los vértices era único, el ciclo es único. $\blacksquare$. \\
+
+$(\Leftarrow)$
+Sea G un grafo que al agregar una arista cualquiera se forma exactamente un ciclo. Ya que al agregar una arista $(v_1, v_2)$, $v_1, v_2 \in V(G)$, se forma un ciclo, entonces debe existir un camino $v_2, ..., v_1$ entre ambos vertices. Ya que el ciclo es único, el camino debe ser único. Como elegimos $v_1, v_2$ genéricos, esto se cumple para todos los vértices, por lo que hay un camino único entre cada par de vértices $\Rightarrow G$ es un árbol. $\blacksquare$. \\
+
+\subsubsection*{Pregunta 2.b}
+% Respuesta pregunta
+Sea $T$ un bosque con $k$ árboles (componentes conexas). \\
+Luego, $|V(T)| = n = \displaystyle\sum_{i=1}^{k}{|V(k_i)|}$, donde $k_i$ es el i-esimo árbol. \\
+Por la definición alternativa vista en clases, sabemos que cada árbol tiene $|V(k_i)| - 1$ aristas.
+Ya que no hay caminos entre árboles, no hay aristas entre estos y la cantidad total de aristas es la siguiente: \\
+\begin{align*}
+|E(T)| &= \sum_{i=1}^k(|V(k_i)| - 1) \\
+&= \sum_{i=1}^{k}{|V(k_i)|} - \sum_{i=1}^{k} 1 \\ 
+&= n - k \\
+\blacksquare
+\end{align*}
+
+\newpage
+\subsubsection*{Pregunta 2.c}
+Sea $G = (V, E)$ un grafo cualquiera. Sea $v \in V(G)$ un vértice de grado $k > 1$. \\
+Sabemos por teorema visto en clases que los árboles son estructuras recursivas ($T - v$ también es árbol). \\
+Luego, para cada uno de los vértices adyacetes a $v$ se tiene un árbol. 
+Sabemos que un árbol no vacío tiene al menos un nodo hoja.
+
+En el caso de que $v$ sea nodo raíz, tiene $k$ hijos y por lo tanto $k$ sub-árboles, lo que implica que tiene al menos $k$ nodos hojas.\\
+En otro caso, $v$ tiene $k - 1$ hijos , lo que significa al menos $k - 1$ hojas
+Ya que cada árbol tiene por lo menos 1 nodo hoja, tenemos por lo menos $k - 1$ hojas. Luego hay 2 casos:
+\begin{itemize}
+  \item Grado del nodo padre de $v$ es 1 $\Rightarrow$ es nodo hoja $\Rightarrow$ al menos $k$ hojas en total.
+  \item Grado nodo padre es mayor a 1 $\Rightarrow$ existe al menos otro sub-árbol hermano de $v$ $\Rightarrow$ al menos $k$ hojas en total.
+\end{itemize}
+$$\blacksquare$$
+% Fin del documento
+\end{document}

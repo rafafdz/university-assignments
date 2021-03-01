@@ -1,0 +1,7 @@
+.git/
+__pycache__
+obj
+.ipynb_checkpoints
+.vscode
+.DS_Store
+

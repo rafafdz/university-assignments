@@ -1,0 +1,32 @@
+<?php include('../templates/header.html');   ?>
+
+<body>
+<?php
+  #Llama a conexión, crea el objeto PDO y obtiene la variable $db
+  require("../config/conexion.php");
+
+  $id_sendero = $_POST["sendero"];
+  $id_sendero = intval($id_sendero);
+
+ 	$query = "SELECT * FROM sendero WHERE ids=$id_sendero";
+
+	$result = $db -> prepare($query);
+	$result -> execute();
+	$dataCollected = $result -> fetchAll();
+  ?>
+
+  <table>
+    <tr>
+        <th>Nombre</th>
+        <th>Largo</th>
+        <th>Dificultad</th>
+        <th>Duracion</th>
+    </tr>
+  <?php
+	foreach ($dataCollected as $p) {
+  		echo "<tr><td>$p[1]| </td> <td>$p[2]| </td> <td>$p[3]| </td> <td>$p[4]</td> </tr>";
+	}
+  ?>
+	</table>
+
+<?php include('../templates/footer.html'); ?>

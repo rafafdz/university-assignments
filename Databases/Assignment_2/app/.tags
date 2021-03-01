@@ -1,0 +1,6 @@
+view	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $view = "CREATE VIEW Hab_Mas_Reservada_Region AS$/;"	variable	line:8
+query	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $query = "SELECT R.rid, R.nombre, H.habid, H.hotid, H.nombre, H.precio$/;"	variable	line:17
+result	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $result = $db -> prepare($query);$/;"	variable	line:27
+view	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $view = "CREATE VIEW Hab_Mas_Reservada_Region AS$/;"	variable	line:8
+query	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $query = "SELECT R.rid, R.nombre, H.habid, H.hotid, H.nombre, H.precio$/;"	variable	line:17
+result	/mnt/win10/Users/rafaf/Documents/Cloud/BDD IIC2413/Entregas locales/Entrega 2/app/consultas/habitacion_mas_reservada_region.php	/^  $result = $db -> prepare($query);$/;"	variable	line:27

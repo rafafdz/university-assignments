@@ -1,0 +1,291 @@
+% Plantilla para documentos LaTeX para enunciados
+% Por Pedro Pablo Aste Kompen - ppaste@uc.cl
+% Licencia Creative Commons BY-NC-SA 3.0
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[12pt]{article}
+
+% Margen de 1 pulgada por lado
+\usepackage{fullpage}
+% Incluye gráficas
+\usepackage{graphicx}
+% Packages para matemáticas, por la American Mathematical Society
+\usepackage{amssymb}
+\usepackage{amsmath}
+% Desactivar hyphenation
+\usepackage[none]{hyphenat}
+% Saltar entre párrafos - sin sangrías
+\usepackage{parskip}
+% Español y UTF-8
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{algorithm,algpseudocode}
+\usepackage{caption}
+
+\DeclareCaptionFormat{myformat}{#3}
+\captionsetup[algorithm]{format=myformat}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ dsfont }
+
+\usepackage{mathtools}
+\usepackage{ upgreek }
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+
+% Links en el documento
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{5pt}
+\pagestyle{fancy}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Exp}[1]{\mathcal{E}_{#1}}
+\newcommand{\List}[1]{\mathcal{L}_{#1}}
+\newcommand{\EN}{\Exp{\N}}
+\newcommand{\LN}{\List{\N}}
+
+\newcommand{\comment}[1]{}
+\newcommand{\lb}{\\~\\}
+\newcommand{\eop}{_{\square}}
+\newcommand{\hsig}{\hat{\sigma}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\leftrightarrow}
+
+% Cambiar por nombre completo + número de alumno
+\newcommand{\alumno}{Rafael Fernández - 17639123}
+\rhead{Tarea 5 - \alumno}
+
+\begin{document}
+\thispagestyle{empty}
+% Membrete
+% PUC-ING-DCC-IIC1103
+\begin{minipage}{2.3cm}
+\includegraphics[width=2cm]{img/logo.pdf}
+\vspace{0.5cm} % Altura de la corona del logo, así el texto queda alineado verticalmente con el círculo del logo.
+\end{minipage}
+\begin{minipage}{\linewidth}
+\textsc{\raggedright \footnotesize
+Pontificia Universidad Católica de Chile \\
+Departamento de Ciencia de la Computación \\
+IIC1253 - Matemáticas Discretas \\}
+\end{minipage}
+
+
+% Titulo
+\begin{center}
+\vspace{0.5cm}
+{\huge\bf Tarea 5}\\
+\vspace{0.2cm}
+\today\\
+\vspace{0.2cm}
+\footnotesize{2º semestre 2019 - Profesores G. Diéguez - F. Suárez}\\
+\vspace{0.2cm}
+\footnotesize{\alumno}
+\rule{\textwidth}{0.05mm}
+\end{center}
+
+\section*{Respuestas}
+% Estas numeracion es solo de ejemplo
+
+\subsection*{Pregunta 1}
+\subsubsection*{Pregunta 1.a}
+Para modelar el tiempo de ejecución del algoritmo, definieremos $T(n)$ en base a las veces que se ejecuta la \textbf{línea 7}. \\
+
+En primer lugar, determinaremos cuántas veces se ejecuta el loop exterior (línea 1) dado el argumento $n$. \\
+
+\begin{algorithm}
+\caption{\textsc{while1(n)}}
+\begin{algorithmic}[1]
+    \State $i = n$
+    \While{$i > 1$}
+        \State $i = i/2$
+    \EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+De acá se puede ver que $T_1(n) = \ceil{\log_{\frac{1}{2}} \frac{1}{n}} = \ceil{\log_2 n} $\\
+
+
+Ahora determinaremos lo mismo para el loop de la línea 4. En este caso, para extraer el loop del resto del programa, tendremos que pasarle como parámetro $n$ y $i$.
+
+\newpage
+
+\begin{algorithm}
+\caption{\textsc{while2(n, i)}}
+\begin{algorithmic}[1]
+    \State $j = i$
+    \While{$j < n$}
+        \State $j = 2 * j$
+    \EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+Acá tenemos que 
+$$T_2(n, i) = \log_2 \frac{n}{i}$$
+ya que el ciclo se ejecuta la cantidad de veces que podemos multiplicar $i$ por $2$ hasta que sea mayor o igual a $n$.
+
+Hasta este punto, podemos modelar la cantidad de veces que se ejecuta el \textsc{while2} estando dentro del \textsc{while1}. Para esto, primero representaremos la variable $i$ de la siguiente forma:
+$$i(k, n) = n * \bigg( \frac{1}{2} \bigg)^{k-1}$$
+donde $k$ es la iteración y $n$ el parámetro de \textsc{DoSomething}. \\
+Luego, podemos representar lo planteado de la siguiente manera:
+
+\begin{align*}
+T_\alpha(n) &= \sum_{k=1}^{\ceil{\log_2 n}} \log_2 {\frac{n}{i}} \\
+&= \sum_{k=1}^{\ceil{\log_2 n}} \log_2 {\Bigg( \frac{n}{n \big( \frac{1}{2} \big)^{k-1}} \Bigg)} \\
+&= \sum_{k=1}^{\ceil{\log_2 n}} \log_2 {2^{k - 1}} \\ 
+&= \sum_{k=1}^{\ceil{\log_2 n}} {(k - 1)} \\
+&= \frac{\ceil{\log_2 n} (\ceil{\log_2 n} + 1)}{2} - \ceil{\log_2 n} \\
+&= \frac{\ceil{\log_2 n} (\ceil{\log_2 n} + 1 - 2)}{2} \\
+&= \frac{1}{2}(\ceil{\log_2 n}^2 - \ceil{\log_2 n})
+\end{align*}
+
+\newpage
+
+Finalmente, analizaremos el ciclo más interno del programa.
+
+\begin{algorithm}
+\caption{\textsc{while3(n)}}
+\begin{algorithmic}[1]
+    \State $k = 0$
+    \While{$k < n$}
+        \State $k = k + 2$
+    \EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+De aquí es fácil ver que
+$$T_3(n) = \ceil[\Big]{\frac{n}{2}}$$
+
+Ya que este ciclo es independiente de variables usadas en otros ciclos, la expresión final de $T$ queda:
+\begin{align*}
+T(n) &= T_\alpha(n)\ceil[\Big]{\frac{n}{2}}\\
+&= \frac{1}{2}(\ceil{\log_2 n}^2 - \ceil{\log_2 n})\ceil[\Big]{\frac{n}{2}}
+\end{align*}
+
+Luego,
+
+\begin{flalign*}
+&& \frac{1}{2}(\ceil{\log_2 n}^2 - \ceil{\log_2 n})\ceil[\Big]{\frac{n}{2}} &\leq
+\ceil[\Big]{\frac{n}{2}}\ceil{\log_2 n}^2 && \text{Para $n \ge 1$}\\
+&& &\leq \Big(\frac{n+1}{2} \Big)\log_{2}^2 {2n} &&\\
+&& &\leq 2n\log_{2}^2 {2n} && \\
+&& &\leq 2n(\log_{2}n + 1)^2 &&\\
+&& &\leq 2n(2\log_{2}n)^2 && \text{Para $n \ge 2$}\\
+&& &\leq 8n\log_{2}^2 n &&\\
+\end{flalign*}
+Por lo que concluimos que
+$$T(n) \in \mathcal{O}(n\log^2 n)$$
+
+Por otra parte,
+
+\begin{flalign*}
+&& \frac{1}{2}(\ceil{\log_2 n}^2 - \ceil{\log_2 n})\ceil[\Big]{\frac{n}{2}} &\geq
+\Big(\frac{1}{2}\Big) \Big(\frac{n}{2}\Big)(\log_2^2{n} - \log_2n) && \\
+&& &\geq \Big(\frac{1}{2}\Big) \Big(\frac{n}{2}\Big)\Big(\log_2^2{n} - \frac{\log_2^2n}{2} \Big) && 
+\text{Para $n \geq 4$}\\
+&& &\geq \Big(\frac{n}{8}\Big)\log_2^2{n} &&\\
+\end{flalign*}
+Por lo tanto
+$$T(n) \in \Omega(n\log^2 n)$$
+Finalmente, podemos concluir que
+$$T(n) \in \Uptheta(n\log^2 n)$$
+
+% \begin{algorithmic}[1]
+% \setcounter{ALG@line}{11}
+%     \If{$(w,s')$ not in $Q$}                      \Comment{in´sert}
+%       \State $k(w,s')  \gets d_{r}(w,s') + \pi_{w,s'}$
+%     \Else                                        \Comment{decrease}
+%       \State $k(w,s') \gets d_{r}(w,s')+ \pi_{w,s'}$
+%     \EndIf
+% \end{algorithmic}
+
+
+% Respuesta pregunta
+\subsubsection*{Pregunta 1.b}
+Ya que $f \in \Uptheta(n)$ entonces $\exists c,d \in \mathds{R}^+$ y $n_0 \in \mathds{N}$ tal que
+$\forall n \geq n_0:$\\
+$$c \cdot n \leq f(n) \leq d \cdot n$$
+Luego
+
+\begin{flalign*}
+&& \sum_{i=0}^n c \cdot i &\leq \sum_{i=0}^n f(i) \leq \sum_{i=0}^n d \cdot i &&\\
+&& c \cdot \frac{n(n+1)}{2} &\leq \sum_{i=0}^n f(i) \leq d \cdot \frac{n(n+1)}{2} && \\
+&& \frac{c}{2} \cdot (n^2 + n) &\leq \sum_{i=0}^n f(i) \leq \frac{d}{2} \cdot (n^2 + n)&& \\
+&& \frac{c}{2} \cdot n^2 &\leq \sum_{i=0}^n f(i) \leq \frac{d}{2} \cdot (n^2 + n^2) &&\\
+&& \frac{c}{2} \cdot n^2 &\leq \sum_{i=0}^n f(i) \leq d \cdot n^2 &&\\
+&& \frac{c}{2} \cdot n^2 &\leq g(n) \leq d \cdot n^2 &&\\
+\end{flalign*}
+% Respuesta pregunta
+
+Por lo tanto
+$$g(n) \in \Uptheta(n^2)$$
+$$\blacksquare$$
+
+\newpage
+\subsection*{Pregunta 2}
+
+\subsubsection*{}
+Resolveremos la ecuacición de recurrencia mediante sustitución de variables con $n = 4^k$ \\
+
+\begin{flalign*}
+&& T(4^k) &= 4T(4^{k-1}) + 4 \cdot 4^k \log_2 2^{2k} && \text{Iteración 1}\\
+&& &= 4T(4^{k-1}) + 2 \cdot 4^{k+1} k && \\
+&& &= 4(T(4^{k-2}) + 2 \cdot 4^{k} (k-1)) + 2 \cdot 4^{k+1} k && \text{Iteración 2}\\
+&& &= 4^2T(4^{k-2}) + 2 \cdot 4^{k+1} (k-1) + 2 \cdot 4^{k+1} k && \\
+&& &= 4^2T(4^{k-2}) + 2 \cdot 4^{k+1} (2k-1) && \\
+&& &= 4^2(4T(4^{k-3}) + 2 \cdot 4^{k-1} (k-2)) + 2 \cdot 4^{k+1} (2k-1) && \text{Iteración 3}\\
+&& &= 4^3T(4^{k-3}) + 2 \cdot 4^{k+1} (3k-3) && \\
+\end{flalign*}
+
+Luego, para la i-esima llamada de $T$ tenemos que
+\begin{flalign*}
+&& T(4^k) &= 4^iT(4^{k-i}) + 2 \cdot 4^{k+1} \Big(ik-\sum_{j=0}^{i-1} j \Big) && \\
+&& &= 4^iT(4^{k-i}) + 2 \cdot 4^{k+1} \bigg(ik-\frac{(i - 1)i}{2}\bigg) &&\\
+\end{flalign*}
+
+Para $i=k-1$ llegamos al caso base en $T(4)$
+\begin{flalign*}
+&& T(4^k) &= 4^{k-1}T(4) + 2 \cdot 4^{k+1} \Big( (k-1)k-\frac{(k-2)(k-1)}{2} \Big) && \\
+&& &= 3 \cdot 4^{k-1} + 2 \cdot 4^{k+1} (k-1) \Big(k-\frac{(k-2)}{2} \Big) && \\
+&& &= 3 \cdot 4^{k-1} + 2 \cdot 4^{k+1} (k-1) \Big(\frac{k}{2} + 1\Big) && \\
+&& &= 4^{k-1}\Big(3 + 2 \cdot 4^{k+1}\Big( \frac{k^2}{2} + \frac{k}{2} - 1\Big)\Big) && \\
+&& &= 4^{k-1}(3 + 4^2 k^2 + 4^2k - 2\cdot 16) && \\
+&& &= 4^{k-1}(16k^2 + 16k -29) && \\
+\end{flalign*}
+
+\newpage
+
+Reemplazando con $n=4^k \Rightarrow k = \log_4 n$
+\begin{flalign*}
+&& T(n) &= \frac{n}{4} (16\log_4^2 n + 16\log_4 n - 29) && \\
+&&  &= 4n\log_4^2 n + 4n\log_4 n - \frac{29n}{4} && \\
+\end{flalign*}
+Luego,
+\begin{flalign*}
+&& 4n\log_4^2 n + 4n\log_4 n - \frac{29n}{4} &\leq 4n\log_4^2n + 4n\log_4 n && \\
+&& &\leq 4n\log_4^2n + 4n\log_4^2 n && \text{Para $n \geq 4$}\\
+&& &\leq 8n\log_4^2n&& \\
+&& &\leq 8n^2\log_4n&& \text{Ya que $n > \log_4 n$}\\
+&& &\leq 4n^2\log_2n && \\
+\end{flalign*}
+Por lo que podemos concluir que
+$$T(n) \in \mathcal{O}(n^2\log_2 n | \textrm{ Potencia}_4)$$
+
+\begin{itemize}
+  \item Podemos notar que $n^2\log_2n$ es asintóticamente no decreciente al ser la multiplicación de $n^2$ y
+  $\log_2 n$, ambas asintóticamente no decrecientes.
+  \item Extendiendo $T(n)$ a los reales y derivando, encontramos que $T(n)$ es asintóticamente no decreciente
+  para $n \geq 4$.
+  \item $(4n)^2\log_2 4n = 16n^2 (\log_2 4 + \log_2 n) = 32n^2 + 16n^2\log_2 n$\\
+  $\Rightarrow g(4n) \in \mathcal{O}(n^2\log_2 n) \Rightarrow g\text{ es 4-armónica}$.
+\end{itemize}
+
+Entonces, por teorema visto en clases
+$$T(n) \in \mathcal{O}(n^2\log_2 n)$$
+$$\blacksquare$$
+
+% Fin del documento
+\end{document}

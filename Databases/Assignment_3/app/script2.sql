@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS Registro;
+CREATE TABLE Registro(regid INT, fecha_ent DATE, fecha_sal DATE, estado VARCHAR(60), idu INT, ids INT, PRIMARY KEY (regid), FOREIGN KEY (idu) REFERENCES Usuario, FOREIGN KEY (ids) REFERENCES Sendero);
+DROP TABLE IF EXISTS ParqueSendero;
+CREATE TABLE ParqueSendero(ids INT, idp INT, PRIMARY KEY (ids), FOREIGN KEY (ids) REFERENCES Sendero, FOREIGN KEY (idp) REFERENCES ParquesNacionales);
+DROP TABLE IF EXISTS ParqueAtractivo;
+CREATE TABLE ParqueAtractivo(idp INT, ida INT, PRIMARY KEY (ida), FOREIGN KEY (idp) REFERENCES ParquesNacionales, FOREIGN KEY (ida) REFERENCES Atractivo);
+DROP TABLE IF EXISTS ParqueRegion;
+CREATE TABLE ParqueRegion(idp INT, idr INT, PRIMARY KEY (idp), FOREIGN KEY (idp) REFERENCES ParquesNacionales, FOREIGN KEY (idr) REFERENCES Region);
+DROP TABLE IF EXISTS RegionVina;
+CREATE TABLE RegionVina(idr INT, idv INT, PRIMARY KEY (idv), FOREIGN KEY (idr) REFERENCES Region, FOREIGN KEY (idv) REFERENCES Vina);
+DROP TABLE IF EXISTS VinaVino;
+CREATE TABLE VinaVino(idv INT, idvino INT, PRIMARY KEY (idvino), FOREIGN KEY (idv) REFERENCES Vina, FOREIGN KEY (idvino) REFERENCES Vino);
+DROP TABLE IF EXISTS VinoTour;
+CREATE TABLE VinoTour(eid INT, idvino INT, PRIMARY KEY (eid, idvino), FOREIGN KEY (eid) REFERENCES Tour, FOREIGN KEY (idvino) REFERENCES Vino);
+DROP TABLE IF EXISTS VinaTour;
+CREATE TABLE VinaTour(eid INT, idv INT, PRIMARY KEY (eid, idv), FOREIGN KEY (eid) REFERENCES Tour, FOREIGN KEY (idv) REFERENCES Vina);

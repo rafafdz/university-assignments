@@ -1,0 +1,4 @@
+def kek():
+    pass
+
+kek()

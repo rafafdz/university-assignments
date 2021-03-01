@@ -1,0 +1,6 @@
+imgs/
+compressed/
+filtered/
+obj/
+*.png
+quadtree

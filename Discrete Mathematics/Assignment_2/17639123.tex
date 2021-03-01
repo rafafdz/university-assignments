@@ -1,0 +1,154 @@
+% Plantilla para documentos LaTeX para enunciados
+% Por Pedro Pablo Aste Kompen - ppaste@uc.cl
+% Licencia Creative Commons BY-NC-SA 3.0
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[12pt]{article}
+
+% Margen de 1 pulgada por lado
+\usepackage{fullpage}
+% Incluye gráficas
+\usepackage{graphicx}
+% Packages para matemáticas, por la American Mathematical Society
+\usepackage{amssymb}
+\usepackage{amsmath}
+% Desactivar hyphenation
+\usepackage[none]{hyphenat}
+% Saltar entre párrafos - sin sangrías
+\usepackage{parskip}
+% Español y UTF-8
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+% Links en el documento
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{5pt}
+\pagestyle{fancy}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Exp}[1]{\mathcal{E}_{#1}}
+\newcommand{\List}[1]{\mathcal{L}_{#1}}
+\newcommand{\EN}{\Exp{\N}}
+\newcommand{\LN}{\List{\N}}
+
+\newcommand{\comment}[1]{}
+\newcommand{\lb}{\\~\\}
+\newcommand{\eop}{_{\square}}
+\newcommand{\hsig}{\hat{\sigma}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\leftrightarrow}
+
+% Cambiar por nombre completo + número de alumno
+\newcommand{\alumno}{Rafael Fernández - 17639123}
+\rhead{Tarea 2 - \alumno}
+
+\begin{document}
+
+
+\thispagestyle{empty}
+% Membrete
+% PUC-ING-DCC-IIC1103
+\begin{minipage}{2.3cm}
+\includegraphics[width=2cm]{img/logo.pdf}
+\vspace{0.5cm} % Altura de la corona del logo, así el texto queda alineado verticalmente con el círculo del logo.
+\end{minipage}
+\begin{minipage}{\linewidth}
+\textsc{\raggedright \footnotesize
+Pontificia Universidad Católica de Chile \\
+Departamento de Ciencia de la Computación \\
+IIC1253 - Matemáticas Discretas \\}
+\end{minipage}
+
+
+% Titulo
+\begin{center}
+\vspace{0.5cm}
+{\huge\bf Tarea 2}\\
+\vspace{0.2cm}
+\today\\
+\vspace{0.2cm}
+\footnotesize{2º semestre 2019 - Profesores G. Diéguez - F. Suárez}\\
+\vspace{0.2cm}
+\footnotesize{\alumno}
+\rule{\textwidth}{0.05mm}
+\end{center}
+
+
+
+\section*{Respuestas}
+% Estas numeracion es solo de ejemplo
+
+\subsection*{Pregunta 1}
+
+a)\\
+
+Ya que sabemos que $\{\neg\textrm{,} \vee\}$ es funcionalmente completo, demostraremos con inducción estructural que para cada formula construida con $\{\neg\textrm{,}\vee\}$, existe otra fórmula equivalente con $\{\sim\textrm{,}\rightarrow\}$.\\
+
+CB: $\varphi = p$, se cumple trivialmente. \\
+HI: Si $\alpha$, $\beta$ se pueden contruir con $\{\neg\textrm{,} \vee\}$, entonces existen $\alpha'$ y $\beta$' escritas con $\{\sim\textrm{,}\rightarrow\}$ tal que $\alpha'\equiv\alpha$ y $\beta'\equiv\beta$.\\
+TI: Paso inductivo
+\begin{itemize}
+  \item $\omega\equiv\neg\alpha\equiv\alpha'\equiv\alpha\rightarrow\sim\alpha\equiv\omega'$\\
+  \item $\omega\equiv\alpha\vee\beta\equiv\alpha'\vee\beta'\equiv\neg\alpha\rightarrow\beta\equiv(\alpha\rightarrow\sim\alpha)\rightarrow\beta$
+\end{itemize}\\
+
+b)\\
+
+Demostraremos que $\{+\textrm{,}\rightarrow\}$ no es FC por contradicción. Para esto se demostrará que para cada fórumla lógica $\varphi \in L(P)$ formada con $\{+\textrm{,}\rightarrow\}$ se cumple que $\varphi(p) \equiv p$ o $\varphi(p) \equiv  \top$
+
+CB: $\varphi = p$, se cumple trivialmente. \\
+HI: Si $\varphi_1$, $\varphi_2 \in L(P)$ escritos solo con $\{+\textrm{,}\rightarrow\}$, entonces $\varphi_1 \equiv \alpha$ y $\varphi_2 \equiv \alpha$, con $\alpha \in \{p \textrm{,}\top \}$\\
+TI: Paso inductivo
+\begin{itemize}
+  \item $+\varphi_1 \equiv \top$ por definición\\
+  \item Para el conector $\rightarrow$ lo demostraremos caso por caso.
+\[
+\begin{tabular}{cc|c}
+$\varphi_1$ & $\varphi_2$ & $\varphi_1\rightarrow\varphi_2$ \\
+\hline
+$p$ & $p$ & $\top$ \\
+$p$ & $\top$ & $\top$ \\
+$\top$ & $p$ & $p$ \\
+$\top$ & $\top$ & $\top$\\
+\end{tabular}
+\]
+\end{itemize}
+
+Como se puede ver, es imposible obtener la negación $\varphi(p)\equiv\neg p$, por lo que el conjunto $\{+\textrm{,}\rightarrow\}$ no puede ser funcionalmente completo.
+
+\newpage
+\subsection*{Pregunta 2}
+
+a)\\
+
+Demostraremos por resolución con $\Sigma = \{\exists x (A(x)) \vee \exists y (B(y)) \textrm{,}\forall x (A(x) \rightarrow B(x)) \textrm{,} \neg(\exists y (B(y)))\} \equiv \square$
+
+\begin{enumerate}[label={(\arabic*)}]
+\item $\forall y(\neg B(y))$
+\item $\neg A(a) \vee B(a)$
+\item $\neg B(a)$
+\item $\neg A(a)$
+\item $A(a) \vee B(a)$
+\item $A(a)$
+\item $\square$
+\end{enumerate}
+
+
+b)\\
+\begin{enumerate}[label={(\arabic*)}]
+\item $A(a)\wedge \neg C(b)$
+\item $A(b)\wedge \neg C(c)$
+\item $\neg A(b) \vee B(b)$
+\item $\neg B(b) \vee C(b)$
+\item $\neg B(b)$
+\item $\neg A(b)$
+\item $\square$
+\end{enumerate}
+
+
+% Fin del documento
+\end{document}

@@ -1,0 +1,15 @@
+*.idea
+*.DS_STORE
+*.tags1
+*.tags
+*.pylintrc
+__pycache__/
+*.py[cod]
+*$py.class
+Enunciado_T04.pdf
+Archivos_T04/
+.vscode/
+*.csv
+prueba*/
+
+

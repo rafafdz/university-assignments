@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS Usuario;
+CREATE TABLE Usuario(idu INT, nombre VARCHAR(300), fecha_nac DATE, correo VARCHAR(300), nacionalidad VARCHAR(60), PRIMARY KEY (idu));
+DROP TABLE IF EXISTS Sendero;
+CREATE TABLE Sendero(ids INT, nombre VARCHAR(300), largo FLOAT, dificultad VARCHAR(60), duracion INT, PRIMARY KEY (ids));
+DROP TABLE IF EXISTS ParquesNacionales;
+CREATE TABLE ParquesNacionales(idp INT, nombre VARCHAR(300), hectareas FLOAT, descripcion VARCHAR(300), tarifa FLOAT, PRIMARY KEY (idp));
+DROP TABLE IF EXISTS Atractivo;
+CREATE TABLE Atractivo(ida INT, nombre VARCHAR(300), descripcion VARCHAR(300), url VARCHAR(300), PRIMARY KEY (ida));
+DROP TABLE IF EXISTS Region;
+CREATE TABLE Region(idr INT, nombre VARCHAR(300), comentario VARCHAR(300), PRIMARY KEY (idr));
+DROP TABLE IF EXISTS Vina;
+CREATE TABLE Vina(idv INT, nombre VARCHAR(300), telefono_contacto VARCHAR(300), descripcion VARCHAR(300), PRIMARY KEY (idv));
+DROP TABLE IF EXISTS Vino;
+CREATE TABLE Vino(idvino INT, nombre VARCHAR(300), descripcion VARCHAR(300), cepa VARCHAR(300), precio FLOAT, PRIMARY KEY (idvino));
+DROP TABLE IF EXISTS Tour;
+CREATE TABLE Tour(eid INT, nombre VARCHAR(300), precio FLOAT, PRIMARY KEY (eid));
